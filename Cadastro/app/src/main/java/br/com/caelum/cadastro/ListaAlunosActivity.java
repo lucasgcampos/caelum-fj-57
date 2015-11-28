@@ -1,5 +1,6 @@
 package br.com.caelum.cadastro;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,7 +23,7 @@ public class ListaAlunosActivity extends ActionBarActivity {
         setContentView(R.layout.activity_lista_alunos);
 
         String[] alunos = {"Anderson", "Filipe", "Guilherme"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alunos);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alunos);
 
         this.listaAlunos = (ListView) this.findViewById(R.id.lista_aluno);
         listaAlunos.setAdapter(adapter);
@@ -39,6 +41,16 @@ public class ListaAlunosActivity extends ActionBarActivity {
                 String aluno = (String) parent.getItemAtPosition(position);
                 Toast.makeText(ListaAlunosActivity.this, "Clique longo: " + aluno, Toast.LENGTH_LONG).show();
                 return false;
+            }
+        });
+
+        Button botaoAdicionar = (Button) findViewById(R.id.botao);
+
+        botaoAdicionar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                startActivity(intent);
             }
         });
     }

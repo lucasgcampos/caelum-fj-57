@@ -7,25 +7,25 @@
 
     <EditText
         android:id="@+id/nome"
-        android:text="Nome"
+        android:hint="Nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/telefone"
-        android:text="Telefone"
+        android:hint="Telefone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/endereco"
-        android:text="Endereço"
+        android:hint="Endereço"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/site"
-        android:text="Site"
+        android:hint="Site"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
