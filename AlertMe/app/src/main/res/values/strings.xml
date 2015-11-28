@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AlertMe</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="grupo">Grupo</string>
+    <string name="cancel">Cancelar</string>
+    <string name="salvar">Salvar</string>
+
+</resources>
