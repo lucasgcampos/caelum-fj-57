@@ -62,10 +62,24 @@ public class ListaAlunosActivity extends ActionBarActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         final Aluno alunoSelecionado = (Aluno) listaAlunos.getAdapter().getItem(info.position);
 
-        MenuItem itemSms = menu.add("Enviar SMS");
-        MenuItem itemMapa = menu.add("Achar no Mapa");
-        MenuItem itemNavegar = menu.add("Navegar no site");
-        MenuItem itemSite = menu.add("Site");
+        MenuItem sms = menu.add("Enviar SMS");
+
+        Intent intentSms = new Intent(Intent.ACTION_VIEW);
+        intentSms.setData(Uri.parse("sms:" + alunoSelecionado.getTelefone()));
+        intentSms.putExtra("sms_body", "text default");
+        sms.setIntent(intentSms);
+
+        MenuItem mapa = menu.add("Achar no Mapa");
+        Intent intentMap = new Intent(Intent.ACTION_VIEW);
+        intentMap.setData(Uri.parse("geo:0,0?z=14&q=" + alunoSelecionado.getEndereco()));
+        mapa.setIntent(intentMap);
+
+        MenuItem site = menu.add("Site");
+        Intent intentSite = new Intent(Intent.ACTION_VIEW);
+
+        String url = alunoSelecionado.getSite().startsWith("http://") ? alunoSelecionado.getSite() : "http://" + alunoSelecionado.getSite();
+        intentSite.setData(Uri.parse(url));
+        site.setIntent(intentSite);
 
         MenuItem ligar = menu.add("Ligar");
         ligar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
