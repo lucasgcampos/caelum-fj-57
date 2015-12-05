@@ -1,6 +1,11 @@
 package br.com.caelum.cadastro;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.io.File;
 
 import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.helper.FormularioHelper;
@@ -17,6 +24,8 @@ import br.com.caelum.cadastro.model.Aluno;
 public class FormularioActivity extends ActionBarActivity {
 
     private FormularioHelper helper;
+    private static final int CODE_CAMERA = 1;
+    private String localArquivoFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +33,49 @@ public class FormularioActivity extends ActionBarActivity {
         setContentView(R.layout.activity_formulario);
 
         this.helper = new FormularioHelper(this);
-
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
         Aluno alunoEdicao = (Aluno) intent.getSerializableExtra("aluno");
         if (alunoEdicao != null) {
             helper.putOnForm(alunoEdicao);
         }
+
+        Button botaoFoto = helper.getFotoButton();
+        botaoFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                localArquivoFoto = getExternalFilesDir(null) + "/" + System.currentTimeMillis() + "jpg";
+
+                Uri localFoto = Uri.fromFile(new File(localArquivoFoto));
+                Intent intentFoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                intentFoto.putExtra(MediaStore.EXTRA_OUTPUT, localFoto);
+                startActivityForResult(intentFoto, CODE_CAMERA);
+
+//                Intent qrDroid = new Intent("la.droid.qr.scan");
+//                startActivityForResult(qrDroid, 0);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CODE_CAMERA) {
+            if (resultCode == Activity.RESULT_OK) {
+                helper.loadImage(this.localArquivoFoto);
+            } else {
+                this.localArquivoFoto = null;
+            }
+        }
+
+//        if (requestCode == 0) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                String result = data.getExtras().getString("la.droid.qr.result");
+//                Toast.makeText(this, "Deu QRCode", Toast.LENGTH_LONG).show();
+//            }
+//        }
+
     }
 
     @Override

@@ -76,7 +76,6 @@ public class ListaAlunosActivity extends ActionBarActivity {
 
         MenuItem site = menu.add("Site");
         Intent intentSite = new Intent(Intent.ACTION_VIEW);
-
         String url = alunoSelecionado.getSite().startsWith("http://") ? alunoSelecionado.getSite() : "http://" + alunoSelecionado.getSite();
         intentSite.setData(Uri.parse(url));
         site.setIntent(intentSite);
@@ -85,7 +84,6 @@ public class ListaAlunosActivity extends ActionBarActivity {
         ligar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                //TODO fazer ligação
                 Intent intent = new Intent(Intent.ACTION_CALL);
                 intent.setData(Uri.parse("tel:" + alunoSelecionado.getTelefone()));
                 startActivity(intent);
