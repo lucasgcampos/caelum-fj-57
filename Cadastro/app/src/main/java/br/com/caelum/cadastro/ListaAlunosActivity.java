@@ -3,6 +3,7 @@ package br.com.caelum.cadastro;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.net.URI;
 import java.util.List;
 
 import br.com.caelum.cadastro.dao.AlunoDAO;
@@ -48,7 +50,6 @@ public class ListaAlunosActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
-
                 startActivity(intent);
             }
         });
@@ -61,11 +62,23 @@ public class ListaAlunosActivity extends ActionBarActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         final Aluno alunoSelecionado = (Aluno) listaAlunos.getAdapter().getItem(info.position);
 
-        MenuItem itemLigar = menu.add("Ligar");
         MenuItem itemSms = menu.add("Enviar SMS");
         MenuItem itemMapa = menu.add("Achar no Mapa");
         MenuItem itemNavegar = menu.add("Navegar no site");
         MenuItem itemSite = menu.add("Site");
+
+        MenuItem ligar = menu.add("Ligar");
+        ligar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                //TODO fazer ligação
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                intent.setData(Uri.parse("tel:" + alunoSelecionado.getTelefone()));
+                startActivity(intent);
+
+                return false;
+            }
+        });
 
         MenuItem deletar = menu.add("Deletar");
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
