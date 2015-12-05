@@ -2,10 +2,12 @@ package br.com.caelum.cadastro.model;
 
 import android.widget.EditText;
 
+import java.io.Serializable;
+
 /**
  * Created by android5388 on 28/11/15.
  */
-public class Aluno {
+public class Aluno implements Serializable {
 
     private Long id;
     private String nome;
@@ -13,6 +15,10 @@ public class Aluno {
     private String endereco;
     private String site;
     private Double nota;
+
+    public boolean hasNome() {
+        return !this.nome.isEmpty();
+    }
 
     public Long getId() {
         return id;

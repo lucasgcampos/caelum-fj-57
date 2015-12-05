@@ -14,6 +14,7 @@
     <EditText
         android:id="@+id/telefone"
         android:hint="Telefone"
+        android:phoneNumber="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -1,5 +1,6 @@
 package br.com.caelum.cadastro;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.helper.FormularioHelper;
+import br.com.caelum.cadastro.model.Aluno;
 
 
 public class FormularioActivity extends ActionBarActivity {
@@ -20,8 +22,16 @@ public class FormularioActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
-    }
 
+        this.helper = new FormularioHelper(this);
+
+        Intent intent = getIntent();
+
+        Aluno alunoEdicao = (Aluno) intent.getSerializableExtra("aluno");
+        if (alunoEdicao != null) {
+            helper.putOnForm(alunoEdicao);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -34,17 +44,20 @@ public class FormularioActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_formulario_ok:
-                this.helper = new FormularioHelper(this);
-                if (helper.hasNome()) {
+
+                Long id = helper.getId();
+                Aluno aluno = helper.getAluno();
+                aluno.setId(id);
+
+                if (!aluno.hasNome()) {
+                    helper.mostrarToastError(this);
+                } else {
                     AlunoDAO dao = new AlunoDAO(this);
-                    dao.inserir(helper.getAluno());
+                    dao.inserirOuAlterar(aluno);
                     dao.close();
                     finish();
-                } else {
-                    helper.mostrarToastError(this);
                 }
-
-                return true;
+                return false;
             default:
                 return super.onOptionsItemSelected(item);
         }

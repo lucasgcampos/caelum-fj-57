@@ -36,18 +36,11 @@ public class ListaAlunosActivity extends ActionBarActivity {
         listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ListaAlunosActivity.this, "Posição selecionada: " + String.valueOf(position), Toast.LENGTH_LONG).show();
+                Intent edicao = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                edicao.putExtra("aluno", (Aluno) parent.getItemAtPosition(position));
+                startActivity(edicao);
             }
         });
-
-//        listaAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                String aluno = (String) parent.getItemAtPosition(position);
-//                Toast.makeText(ListaAlunosActivity.this, "Clique longo: " + aluno, Toast.LENGTH_LONG).show();
-//                return false;
-//            }
-//        });
 
         Button botaoAdicionar = (Button) findViewById(R.id.botao);
 
@@ -55,6 +48,7 @@ public class ListaAlunosActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+
                 startActivity(intent);
             }
         });
@@ -80,7 +74,7 @@ public class ListaAlunosActivity extends ActionBarActivity {
                 new AlertDialog.Builder(ListaAlunosActivity.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle("Deletar")
-                        .setMessage("Deseja mesmo deletar o aluno: " + alunoSelecionado.getNome() + "?")
+                        .setMessage("Deseja mesmo deletar o aluno " + alunoSelecionado.getNome() + "?")
                         .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
