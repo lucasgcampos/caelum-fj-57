@@ -41,10 +41,8 @@ public class AlunoDAO extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        String query = "DROP TABLE IF EXIST " + TABELA;
         String query = "ALTER TABLE " + TABELA + " ADD COLUMN caminhoFoto TEXT;";
         db.execSQL(query);
-//        onCreate(db);
     }
 
     private void inserir(Aluno aluno) {
@@ -106,5 +104,14 @@ public class AlunoDAO extends SQLiteOpenHelper {
 
         String[] args = {aluno.getId().toString()};
         getWritableDatabase().update(TABELA, values, "id=?", args);
+    }
+
+    public boolean isAlunoPorTelefone(String telefone) {
+        String[] parametros = {telefone};
+        Cursor rawQuery = getReadableDatabase().rawQuery("SELECT telefone FROM " + TABELA + " WHERE telefone = ?;", parametros);
+        int total = rawQuery.getCount();
+        rawQuery.close();
+
+        return total > 0;
     }
 }
