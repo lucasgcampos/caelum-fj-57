@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,8 @@ import java.util.List;
 import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.helper.AlunoAdapter;
 import br.com.caelum.cadastro.model.Aluno;
+
+import static br.com.caelum.cadastro.helper.JsonStringerAluno.toJson;
 
 
 public class ListaAlunosActivity extends ActionBarActivity {
@@ -134,15 +137,17 @@ public class ListaAlunosActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+       switch (item.getItemId()) {
+           case R.id.menu_enviar_notas:
+//               AlunoDAO dao = new AlunoDAO(this);
+//               List<Aluno> alunos1 = dao.getLista();
+//               dao.close();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+               String json = toJson(alunos);
+               Toast.makeText(this, json, Toast.LENGTH_LONG).show();
+               Log.i("INFO", json);
+               return true;
+       }
 
         return super.onOptionsItemSelected(item);
     }
