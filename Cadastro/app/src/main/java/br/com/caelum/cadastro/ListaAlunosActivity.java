@@ -20,6 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 import br.com.caelum.cadastro.dao.AlunoDAO;
+import br.com.caelum.cadastro.helper.AlunoAdapter;
 import br.com.caelum.cadastro.model.Aluno;
 
 
@@ -32,7 +33,6 @@ public class ListaAlunosActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
-
 
         this.listaAlunos = (ListView) this.findViewById(R.id.lista_aluno);
         listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -123,7 +123,6 @@ public class ListaAlunosActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        this.carregarLista();
     }
 
     @Override
@@ -153,7 +152,7 @@ public class ListaAlunosActivity extends ActionBarActivity {
         alunos = db.getLista();
         db.close();
 
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alunos);
+        AlunoAdapter adapter = new AlunoAdapter(alunos, this);
 
         this.listaAlunos = (ListView) this.findViewById(R.id.lista_aluno);
         listaAlunos.setAdapter(adapter);

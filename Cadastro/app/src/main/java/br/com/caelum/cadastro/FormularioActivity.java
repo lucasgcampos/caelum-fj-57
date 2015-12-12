@@ -51,9 +51,6 @@ public class FormularioActivity extends ActionBarActivity {
 
                 intentFoto.putExtra(MediaStore.EXTRA_OUTPUT, localFoto);
                 startActivityForResult(intentFoto, CODE_CAMERA);
-
-//                Intent qrDroid = new Intent("la.droid.qr.scan");
-//                startActivityForResult(qrDroid, 0);
             }
         });
     }
@@ -68,13 +65,6 @@ public class FormularioActivity extends ActionBarActivity {
                 this.localArquivoFoto = null;
             }
         }
-
-//        if (requestCode == 0) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                String result = data.getExtras().getString("la.droid.qr.result");
-//                Toast.makeText(this, "Deu QRCode", Toast.LENGTH_LONG).show();
-//            }
-//        }
 
     }
 
