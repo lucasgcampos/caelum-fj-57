@@ -17,6 +17,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import java.net.URI;
 import java.util.List;
 
@@ -25,6 +30,7 @@ import br.com.caelum.cadastro.helper.AlunoAdapter;
 import br.com.caelum.cadastro.model.Aluno;
 
 import static br.com.caelum.cadastro.helper.JsonStringerAluno.toJson;
+import static br.com.caelum.cadastro.helper.WebClient.post;
 
 
 public class ListaAlunosActivity extends ActionBarActivity {
@@ -139,13 +145,10 @@ public class ListaAlunosActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
        switch (item.getItemId()) {
            case R.id.menu_enviar_notas:
-//               AlunoDAO dao = new AlunoDAO(this);
-//               List<Aluno> alunos1 = dao.getLista();
-//               dao.close();
+               String resposta = post(toJson(alunos));
+               Toast.makeText(this, resposta, Toast.LENGTH_LONG);
 
-               String json = toJson(alunos);
-               Toast.makeText(this, json, Toast.LENGTH_LONG).show();
-               Log.i("INFO", json);
+
                return true;
        }
 
