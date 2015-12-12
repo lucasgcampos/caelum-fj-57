@@ -27,6 +27,7 @@ import java.util.List;
 
 import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.helper.AlunoAdapter;
+import br.com.caelum.cadastro.helper.EnviaAlunosTask;
 import br.com.caelum.cadastro.model.Aluno;
 
 import static br.com.caelum.cadastro.helper.JsonStringerAluno.toJson;
@@ -145,10 +146,7 @@ public class ListaAlunosActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
        switch (item.getItemId()) {
            case R.id.menu_enviar_notas:
-               String resposta = post(toJson(alunos));
-               Toast.makeText(this, resposta, Toast.LENGTH_LONG);
-
-
+               new EnviaAlunosTask(this).execute();
                return true;
        }
 
