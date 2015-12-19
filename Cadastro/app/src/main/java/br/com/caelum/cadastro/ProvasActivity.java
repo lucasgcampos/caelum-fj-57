@@ -70,7 +70,7 @@ public class ProvasActivity extends ActionBarActivity {
             detalhaFragment.setArguments(infos);
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.provas_view, detalhaFragment).commit();
+            transaction.replace(R.id.provas_view, detalhaFragment).addToBackStack(null).commit();
         }
     }
 }

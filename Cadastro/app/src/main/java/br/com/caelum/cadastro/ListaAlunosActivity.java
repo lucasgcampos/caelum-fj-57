@@ -17,6 +17,7 @@ import android.widget.ListView;
 import java.util.List;
 
 import br.com.caelum.cadastro.dao.AlunoDAO;
+import br.com.caelum.cadastro.dao.MostraAlunosActivity;
 import br.com.caelum.cadastro.helper.AlunoAdapter;
 import br.com.caelum.cadastro.helper.EnviaAlunosTask;
 import br.com.caelum.cadastro.model.Aluno;
@@ -139,6 +140,10 @@ public class ListaAlunosActivity extends ActionBarActivity {
            case R.id.menu_receber_provas:
                Intent provas = new Intent(this, ProvasActivity.class);
                startActivity(provas);
+               return true;
+           case R.id.menu_mapa:
+               Intent mapa = new Intent(this, MostraAlunosActivity.class);
+               startActivity(mapa);
                return true;
 
        }
