@@ -52,7 +52,7 @@ public class AlunoAdapter extends BaseAdapter {
 
         if (linha == null) {
             LayoutInflater inflater = context.getLayoutInflater();
-            linha = inflater.inflate(R.layout.linha, parent, false);
+            linha = inflater.inflate(R.layout.item, parent, false);
 
             if (position % 2 == 0) {
                 linha.setBackgroundColor(context.getResources().getColor(R.color.linha_par));
@@ -62,6 +62,8 @@ public class AlunoAdapter extends BaseAdapter {
         }
 
         TextView nomeView = (TextView) linha.findViewById(R.id.item_nome);
+        TextView telefoneView = (TextView) linha.findViewById(R.id.item_telefone);
+        TextView siteView = (TextView) linha.findViewById(R.id.item_site);
         ImageView imagemView = (ImageView) linha.findViewById(R.id.item_foto);
 
         Bitmap bm;
@@ -74,6 +76,12 @@ public class AlunoAdapter extends BaseAdapter {
         bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
 
         nomeView.setText(aluno.getNome());
+        if (telefoneView != null) {
+            telefoneView.setText(aluno.getTelefone());
+        }
+        if (siteView != null) {
+            siteView.setText(aluno.getSite());
+        }
         imagemView.setImageBitmap(bm);
 
         return linha;
