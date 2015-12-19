@@ -1,12 +1,16 @@
 package br.com.caelum.cadastro;
 
+import android.content.pm.ActivityInfo;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import br.com.caelum.cadastro.fragment.DetalhesProvaFragment;
 import br.com.caelum.cadastro.fragment.ListaProvaFragment;
+import br.com.caelum.cadastro.model.Prova;
 
 
 public class ProvasActivity extends ActionBarActivity {
@@ -17,11 +21,18 @@ public class ProvasActivity extends ActionBarActivity {
         setContentView(R.layout.activity_provas);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        transaction.replace(R.id.provas_view, new ListaProvaFragment());
+        if (isLand()) {
+            transaction.replace(R.id.provas_lista, new ListaProvaFragment());
+            transaction.replace(R.id.provas_detalhes, new DetalhesProvaFragment());
+        } else {
+            transaction.replace(R.id.provas_view, new ListaProvaFragment());
+        }
         transaction.commit();
     }
 
+    public boolean isLand() {
+        return getResources().getBoolean(R.bool.isLand);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,5 +54,23 @@ public class ProvasActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void selecionarProva(Prova provaSelecionada) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        if (isLand()) {
+            DetalhesProvaFragment detalheFragment = (DetalhesProvaFragment) fragmentManager.findFragmentById(R.id.provas_detalhes);
+            detalheFragment.popular(provaSelecionada);
+        } else {
+            Bundle infos = new Bundle();
+            infos.putSerializable("prova", provaSelecionada);
+
+            DetalhesProvaFragment detalhaFragment = new DetalhesProvaFragment();
+            detalhaFragment.setArguments(infos);
+
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.provas_view, detalhaFragment).commit();
+        }
     }
 }

@@ -2,7 +2,6 @@ package br.com.caelum.cadastro.helper;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;

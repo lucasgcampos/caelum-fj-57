@@ -6,32 +6,20 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.net.URI;
 import java.util.List;
 
 import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.helper.AlunoAdapter;
 import br.com.caelum.cadastro.helper.EnviaAlunosTask;
 import br.com.caelum.cadastro.model.Aluno;
-
-import static br.com.caelum.cadastro.helper.JsonStringerAluno.toJson;
-import static br.com.caelum.cadastro.helper.WebClient.post;
 
 
 public class ListaAlunosActivity extends ActionBarActivity {

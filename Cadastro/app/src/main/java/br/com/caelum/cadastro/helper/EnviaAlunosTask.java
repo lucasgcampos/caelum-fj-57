@@ -3,13 +3,8 @@ package br.com.caelum.cadastro.helper;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.widget.Toast;
-
-import java.util.List;
-import java.util.Objects;
 
 import br.com.caelum.cadastro.dao.AlunoDAO;
-import br.com.caelum.cadastro.model.Aluno;
 
 import static android.widget.Toast.*;
 import static android.widget.Toast.makeText;

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import br.com.caelum.cadastro.ProvasActivity;
 import br.com.caelum.cadastro.R;
 import br.com.caelum.cadastro.model.Prova;
 
@@ -44,6 +45,11 @@ public class ListaProvaFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Prova provaSelecionada = (Prova) parent.getItemAtPosition(position);
+
+                ProvasActivity activity = (ProvasActivity) getActivity();
+                activity.selecionarProva(provaSelecionada);
+
+
 
                 Toast.makeText(getActivity(), "Prova selecionada: " + provaSelecionada.toString(), Toast.LENGTH_LONG).show();
             }
